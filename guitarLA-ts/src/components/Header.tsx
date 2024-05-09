@@ -1,4 +1,15 @@
-export default function Header({ cart, removeGuitarCart, increaseGuitar, decreaseGuitar, removeCart, isEmpty, cartTotal }) {
+import type { CartIem, Guitar } from "../types/types"
+type HeaderProps = {
+    cart: CartIem[]
+    removeGuitarCart: (id:Guitar['id']) => void
+    increaseGuitar: (id:Guitar['id']) => void
+    decreaseGuitar: (id:Guitar['id']) => void
+    removeCart: () => void
+    isEmpty: boolean
+    cartTotal: number
+}
+
+export default function Header({ cart, removeGuitarCart, increaseGuitar, decreaseGuitar, removeCart, isEmpty, cartTotal }:HeaderProps) {
     
 
     return (
