@@ -1,14 +1,12 @@
-import { useMemo } from "react"
 import { useCart } from "../hooks/useCart"
 
 
 export default function Header() {
 
-    const { state, dispatch } = useCart()
+    const { state, dispatch, isEmpty, cartTotal} = useCart()
 
     // Funciones del header    
-    const isEmpty = useMemo(() => state.cart.length === 0, [state.cart])
-    const cartTotal = useMemo(() => state.cart.reduce((total, item) => total + (item.quantity * item.price), 0), [state.cart])
+    
 
     return (
         <header className="py-5 header">
