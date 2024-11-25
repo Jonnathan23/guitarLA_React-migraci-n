@@ -1,13 +1,13 @@
-import { Dispatch } from "react"
-import { CartActions } from "../reducers/cart-reducers"
 import type { Guitar } from "../types/types"
+import { useCart } from "../hooks/useCart"
 
 type GuitarProps = {
-    guitar : Guitar,
-    dispatch: Dispatch<CartActions>
+    guitar : Guitar,   
 }
 
-export default function Guitar({guitar, dispatch}:GuitarProps ){
+export default function Guitar({guitar}:GuitarProps ){
+
+    const { dispatch} = useCart()
     
     const {name,image, description, price} = guitar
 

@@ -1,15 +1,14 @@
-import { Dispatch, useMemo } from "react"
-import type { CartIem } from "../types/types"
-import { CartActions } from "../reducers/cart-reducers"
-type HeaderProps = {
-    cart: CartIem[]       
-    dispatch: Dispatch<CartActions>
-}
+import { useMemo } from "react"
+import { useCart } from "../hooks/useCart"
 
-export default function Header({ cart, dispatch }: HeaderProps) {
+
+export default function Header() {
+
+    const { state, dispatch } = useCart()
+
     // Funciones del header    
-    const isEmpty = useMemo(() => cart.length === 0, [cart])
-    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity * item.price), 0), [cart])
+    const isEmpty = useMemo(() => state.cart.length === 0, [state.cart])
+    const cartTotal = useMemo(() => state.cart.reduce((total, item) => total + (item.quantity * item.price), 0), [state.cart])
 
     return (
         <header className="py-5 header">
@@ -40,7 +39,7 @@ export default function Header({ cart, dispatch }: HeaderProps) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {cart.map(guitar => (
+                                                {state.cart.map(guitar => (
                                                     <tr key={guitar.id}>
                                                         <td>
                                                             <img className="img-fluid" src={`/img/${guitar.image}.jpg`} alt="imagen guitarra" />
@@ -82,7 +81,7 @@ export default function Header({ cart, dispatch }: HeaderProps) {
                                         <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
                                     </>
                                 )}
-                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={() => dispatch({type:'clear-cart'})}>Vaciar Carrito</button>
+                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={() => dispatch({ type: 'clear-cart' })}>Vaciar Carrito</button>
                             </div>
                         </div>
                     </nav>

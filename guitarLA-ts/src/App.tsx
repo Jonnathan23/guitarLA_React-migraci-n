@@ -1,13 +1,12 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import Header from "./components/Header";
 import Guitar from "./components/Guitar"
 
-import { cartReducer, initialState } from "./reducers/cart-reducers";
+import { useCart } from "./hooks/useCart";
 
 function App() {
 
-
-    const [state, dispatch] = useReducer(cartReducer, initialState);
+    const { state } = useCart()
 
     useEffect(() => localStorage.setItem('cart', JSON.stringify(state.cart)), [state.cart])
 
@@ -15,11 +14,7 @@ function App() {
 
     return (
         <>
-            <Header
-                cart={state.cart}
-                dispatch={dispatch}
-
-            />
+            <Header />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
 
@@ -28,7 +23,6 @@ function App() {
                         <Guitar
                             key={guitar.id}
                             guitar={guitar}
-                            dispatch={dispatch}
                         />
                     ))}
 
